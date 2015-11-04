@@ -1,31 +1,23 @@
 {
   "name": "lantern",
-  "version": "0.0.0",
-  "description": "Discover and configure Beacons",
+  "version": "0.0.1",
+  "description": "Discover and configure Beacons on a Mac",
   "main": "main.js",
   "scripts": {
     "start": "electron main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/atom/electron-quick-start.git"
+    "url": "git+https://github.com/tomhallam/lantern.git"
   },
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
-  ],
-  "author": "GitHub",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/atom/electron-quick-start/issues"
-  },
-  "homepage": "https://github.com/atom/electron-quick-start#readme",
+  "keywords": [],
+  "author": "Tom Hallam",
+  "homepage": "https://github.com/tomhallam/lantern.git#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.34.0"
+    "electron-prebuilt": "^0.34.0",
+    "electron-rebuild": "^1.0.2"
   },
   "dependencies": {
-    "photon": "git+https://github.com/connors/photon.git"
+    "bleacon": "^0.4.0"
   }
 }
