@@ -1,3 +1,4 @@
 function updateBeaconList(beacons) {
-  console.log(beacons);
+  //var beaconService = angular.injector(['lantern']).get('beaconService');
+  //beaconService.setBeacons(beacons);
 }

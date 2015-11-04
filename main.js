@@ -1,6 +1,7 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var Bleacon = require('bleacon');
+var ipc = require('ipc');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -9,6 +10,7 @@ require('crash-reporter').start();
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 var beacons = [];
+var frontendReady = false;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -37,7 +39,7 @@ app.on('ready', function() {
   mainWindow.loadUrl('file://' + __dirname + '/app/index.html');
 
   // Open the DevTools.
-  mainWindow.openDevTools();
+  //mainWindow.openDevTools();
 
   // Get a reference to the webContents API from the Window
   var webContents = mainWindow.webContents;
@@ -64,11 +66,18 @@ app.on('ready', function() {
       });
     }
 
-    webContents.executeJavaScript('updateBeaconList(' + JSON.stringify(beacons) + ')')
+    webContents.send('main:beaconUpdate', beacons)
 
   });
 
-  Bleacon.startScanning();
+  ipc.on('frontend-ready', function(event) {
+    if(!frontendReady) {
+      console.log('Frontend is ready');
+      frontendReady = true;
+      Bleacon.startScanning();
+      event.sender.send('main:scanning', '');
+    }
+  });
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {

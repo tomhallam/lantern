@@ -4,7 +4,17 @@
   angular.module('lantern.main', [])
     .controller('MainController', MainController)
 
-  function MainController() {
+  function MainController($scope) {
+
+    console.log('TEST');
+
+    $scope.beacons = [];
+    $scope.$on('frontend:beaconsUpdate', function(event, data) {
+      $scope.$apply(function() {
+          console.log(data.length);
+          $scope.beacons = data;
+      })
+    });
 
   }
 
