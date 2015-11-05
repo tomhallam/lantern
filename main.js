@@ -52,7 +52,7 @@ app.on('ready', function() {
 
   // Respond to tree update events
   beaconManager.on('treeUpdate', function(tree) {
-      webContents.send('main:beaconUpdate', tree)
+      webContents.send('main:beaconUpdate', tree);
   });
 
   // Event listener for when the frontend is ready

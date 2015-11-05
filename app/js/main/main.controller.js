@@ -6,8 +6,6 @@
 
   function MainController($scope) {
 
-    console.log('TEST');
-
     $scope.beaconTree = [];
     $scope.$on('frontend:beaconsUpdate', function(event, data) {
       $scope.$apply(function() {
