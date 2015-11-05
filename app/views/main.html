@@ -1,26 +1,26 @@
 <div class="pane-group">
   <div class="pane sidebar" style="max-width: 350px; ">
-    <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.2); background: #2980b9;">
-      <img src="images/logo.png" width="100%" />
-    </div>
-
+    <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.2); background: #111 url(images/logo.png) no-repeat 0px center; height: 100px; background-size: contain;"></div>
     <div>
-
-      <div ng-repeat="(index, beaconContainer) in beaconTree track by index" style="padding: 15px;">
-          <strong>{{index.toUpperCase() | guid}} ({{beaconContainer.length}})</strong>
-          <div ng-repeat="(beaconIndex, beacon) in beaconContainer | orderBy: '-accuracy'" style="border-bottom: 1px solid #e7e7e7; padding: 10px; text-transform: uppercase; font-size: 11px; color: #666;">
-              <div>Major: {{beacon.major}}</div>
-              <div>Minor: {{beacon.minor}}</div>
-              <div>Distance: {{beacon.accuracy.toString().substr(0,3)}}m ({{beacon.proximity}})</div>
+      <div style="padding: 10px 15px; background: #2980b9; font-weight: bold; color: #fff;">Nearby Beacon Groups</div>
+      <div ng-repeat="(index, beaconContainer) in beaconTree track by index" style="padding: 15px">
+        <strong style="font-size: 14px;">{{index.toUpperCase() | guid}} ({{beaconContainer.length}})</strong>
+        <div ng-repeat="(beaconIndex, beacon) in beaconContainer | orderBy: 'accuracy'" style="border-bottom: 1px solid #e7e7e7; padding: 15px 0px; font-size: 12px; color: #666; ">
+          <div class="beacon-title">
+            <strong>Beacon {{beaconIndex + 1}}</strong>
           </div>
+          <div class="beacon-info" style="display: flex;">
+            <div style="flex: 1">Major: {{beacon.major}}</div>
+            <div style="flex: 1">Minor: {{beacon.minor}}</div>
+            <div style="flex: 2">Distance: {{beacon.accuracy.toString().substr(0,3)}}m ({{beacon.proximity}})</div>
+          </div>
+        </div>
       </div>
-
     </div>
-
   </div>
   <div class="pane">
-      <div class="padded-more">
+    <div class="padded-more">
 
-      </div>
+    </div>
   </div>
 </div>
