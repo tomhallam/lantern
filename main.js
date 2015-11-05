@@ -1,7 +1,10 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
-var Bleacon = require('bleacon');
+
 var ipc = require('ipc');
+var BeaconManager = require('./components/beaconManager');
+
+var debug = require('debug')('lantern:main');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -25,6 +28,9 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
 
+  // Create a new BeaconManager instance
+  var beaconManager = new BeaconManager();
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1024,
@@ -44,47 +50,26 @@ app.on('ready', function() {
   // Get a reference to the webContents API from the Window
   var webContents = mainWindow.webContents;
 
-  // Beacon scan code
-  Bleacon.on('discover', function(beacon) {
-
-    var beaconExists = beacons.filter(function(existingBeacon) {
-      return (
-        beacon.uuid === existingBeacon.uuid
-        && beacon.major === existingBeacon.major
-        && beacon.minor === existingBeacon.minor
-      );
-    });
-
-    if(!beaconExists.length) {
-      beacons.push(beacon);
-    }
-    else {
-      beacons = beacons.map(function(existingBeacon) {
-        if(beacon.uuid === existingBeacon.uuid && beacon.major === existingBeacon.major && beacon.minor === existingBeacon.minor) {
-          return beacon;
-        }
-      });
-    }
-
-    webContents.send('main:beaconUpdate', beacons)
-
+  // Respond to tree update events
+  beaconManager.on('treeUpdate', function(tree) {
+      webContents.send('main:beaconUpdate', tree)
   });
 
+  // Event listener for when the frontend is ready
   ipc.on('frontend-ready', function(event) {
     if(!frontendReady) {
-      console.log('Frontend is ready');
+      debug('Frontend ready');
       frontendReady = true;
-      Bleacon.startScanning();
+      beaconManager.init();
       event.sender.send('main:scanning', '');
     }
   });
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
+
+    beaconManager.stop();
     mainWindow = null;
-    Bleacon.stopScanning();
+
   });
 });
