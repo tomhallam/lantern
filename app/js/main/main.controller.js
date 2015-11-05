@@ -8,11 +8,10 @@
 
     console.log('TEST');
 
-    $scope.beacons = [];
+    $scope.beaconTree = [];
     $scope.$on('frontend:beaconsUpdate', function(event, data) {
       $scope.$apply(function() {
-          console.log(data.length);
-          $scope.beacons = data;
+          $scope.beaconTree = data;
       })
     });
 
