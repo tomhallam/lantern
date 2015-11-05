@@ -50,7 +50,6 @@ BeaconManager.prototype.updateTree = function(updatedBeacon) {
     uuidFamilyTree.push(updatedBeacon);
   }
 
-  debug('BeaconManager.treeUpdate %o', this.tree);
   self.emit('treeUpdate', this.tree);
 
   return this;
