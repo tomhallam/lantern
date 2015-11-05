@@ -1,26 +1,27 @@
 <div class="pane-group">
-  <div class="pane sidebar" style="max-width: 350px; ">
-    <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.2); background: #111 url(images/logo.png) no-repeat 0px center; height: 100px; background-size: contain;"></div>
+  <div id="sidebar-main" class="pane sidebar">
+    <div id="logo"></div>
     <div>
-      <div style="padding: 10px 15px; background: #2980b9; font-weight: bold; color: #fff;">Nearby Beacon Groups</div>
-      <div ng-repeat="(index, beaconContainer) in beaconTree track by index" style="padding: 15px">
-        <strong style="font-size: 14px;">{{index.toUpperCase() | guid}} ({{beaconContainer.length}})</strong>
-        <div ng-repeat="(beaconIndex, beacon) in beaconContainer | orderBy: 'accuracy'" style="border-bottom: 1px solid #e7e7e7; padding: 15px 0px; font-size: 12px; color: #666; ">
-          <div class="beacon-title">
-            <strong>Beacon {{beaconIndex + 1}}</strong>
-          </div>
-          <div class="beacon-info" style="display: flex;">
-            <div style="flex: 1">Major: {{beacon.major}}</div>
-            <div style="flex: 1">Minor: {{beacon.minor}}</div>
-            <div style="flex: 2">Distance: {{beacon.accuracy.toString().substr(0,3)}}m ({{beacon.proximity}})</div>
+      <div class="sidebar-heading">Nearby Beacon Groups</div>
+      <div ng-show="!beaconGroups.length" class="pad-25">Scanning ...</div>
+      <div ng-show="beaconGroups.length" class="pad-15" style="border-bottom: 1px solid #ccc; margin-bottom: 15px;">Below is the list of all beacons nearby, grouped by UUID. Click a beacon to interact with it.</div>
+      <div id="beacons-container" ng-repeat="(index, beaconContainer) in beaconTree track by index" class="scroll-container">
+        <div class="group">
+          <div class="group-heading">{{index.toUpperCase() | guid}} ({{beaconContainer.length}})</div>
+          <div ng-click="loadBeacon(beacon)" class="beacon" ng-class="{active: beaconInView == (beacon.uuid + '.' + beacon.major + '.' + beacon.minor)}" ng-repeat="(beaconIndex, beacon) in beaconContainer track by beaconIndex | orderBy: 'accuracy'">
+            <div class="beacon-title">
+              <strong style="font-size: 14px;">Beacon {{beaconIndex + 1}}</strong>
+            </div>
+            <div class="beacon-info" style="display: flex;">
+              <div style="flex: 1"><strong>Major:</strong> {{beacon.major}}</div>
+              <div style="flex: 1"><strong>Minor:</strong> {{beacon.minor}}</div>
+              <div style="flex: 2"><strong>Distance:</strong> {{beacon.accuracy.toString().substr(0,3)}}m</div>
+            </div>
+            <div class="clearfix"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="pane">
-    <div class="padded-more">
-
-    </div>
-  </div>
+  <div class="pane" style="box-shadow: 0px 0px 5px 0px rgba(0,0,0,.3); justify-content: center; align-items: center; display: flex;" class="{{page}}" ui-view></div>
 </div>

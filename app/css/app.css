@@ -1,0 +1,47 @@
+.pad-15 {
+  padding: 15px; }
+
+.pad-25 {
+  padding: 25px; }
+
+.scroll-container {
+  overflow-y: scroll; }
+
+.clearfix {
+  clear: both; }
+
+#app-main #sidebar-main {
+  max-width: 400px;
+  overflow: hidden; }
+  #app-main #sidebar-main #logo {
+    background: #111 url(../images/logo.png) no-repeat 0px center;
+    height: 100px;
+    background-size: contain; }
+  #app-main #sidebar-main #beacons-container .group {
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 15px;
+    font-size: 16px; }
+    #app-main #sidebar-main #beacons-container .group .group-heading {
+      padding: 5px 15px;
+      font-weight: bold; }
+  #app-main #sidebar-main #beacons-container .beacon {
+    background: url(../images/beacon.png) no-repeat 15px center;
+    background-size: 32px 32px;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 15px 55px;
+    font-size: 12px;
+    color: #666;
+    text-decoration: none; }
+    #app-main #sidebar-main #beacons-container .beacon:hover, #app-main #sidebar-main #beacons-container .beacon.active {
+      background-color: rgba(0, 0, 0, 0.1);
+      color: #000;
+      cursor: pointer; }
+    #app-main #sidebar-main #beacons-container .beacon:last-child {
+      border-bottom: 0; }
+
+#app-main .sidebar-heading {
+  padding: 10px 15px;
+  background: #E74C3C;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px; }

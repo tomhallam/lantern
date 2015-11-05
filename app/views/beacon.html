@@ -1,0 +1,23 @@
+<form style="">
+  <h2 style="margin-top: 0;">Configure Beacon</h2>
+  <hr />
+  <p>Update the values in the form below to change the beacon characteristics.</p>
+  <hr />
+  <div class="form-group">
+    <label>UUID</label>
+    <input type="text" class="form-control" placeholder="UUID" ng-model="uuid">
+  </div>
+  <div class="form-group">
+    <label>Major</label>
+    <input type="number" class="form-control" placeholder="Major" ng-model="major">
+  </div>
+  <div class="form-group">
+    <label>Minor</label>
+    <input type="number" class="form-control" placeholder="Minor" ng-model="minor">
+  </div>
+  <hr />
+  <div class="form-actions">
+    <button ui-sref="app.main" type="submit" class="btn btn-form btn-default">Cancel</button>
+    <button type="submit" class="btn btn-form btn-primary">Save Changes</button>
+  </div>
+</form>

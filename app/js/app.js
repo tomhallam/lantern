@@ -3,7 +3,7 @@
 
   var ipc = require('ipc');
 
-  angular.module('lantern', ['ui.router','lantern.main'])
+  angular.module('lantern', ['ui.router','lantern.main', 'lantern.beacon'])
     .config(LanternConfig)
     .controller('LanternController', LanternController)
     .filter('guid', function() {
@@ -13,7 +13,7 @@
       };
     });
 
-    
+
   function LanternConfig($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/main');
@@ -27,11 +27,18 @@
         url: '/main',
         controller: 'MainController as vm',
         templateUrl: 'views/main.html'
-      });
+      })
+      .state('app.main.beacon', {
+        url: '/beacon/:uuid/:major/:minor',
+        controller: 'BeaconController as vm',
+        templateUrl: 'views/beacon.html'
+      })
 
   }
 
-  function LanternController($rootScope, $scope) {
+  function LanternController($state, $rootScope, $scope) {
+
+    $scope.page = $state.current.name.replace('.', '-');
 
     $scope.$on('$viewContentLoaded', function() {
       ipc.send('frontend-ready');
