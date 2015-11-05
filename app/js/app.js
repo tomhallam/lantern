@@ -13,8 +13,7 @@
       };
     });
 
-  /**
-  
+    
   function LanternConfig($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/main');
